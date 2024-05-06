@@ -1,4 +1,4 @@
-const usersService = require('./users-service');
+const usersService = require('./users.service');
 const { errorResponder, errorTypes } = require('../../../core/errors');
 
 /**
@@ -10,7 +10,12 @@ const { errorResponder, errorTypes } = require('../../../core/errors');
  */
 async function getUsers(request, response, next) {
   try {
-    const users = await usersService.getUsers();
+    const users = await usersService.getUsers(request.params.id);
+
+    if (!user) {
+      throw errorResponder(errorTypes.UNPROCESSABLE_ENTITY, 'Unknown user');
+    }
+                                                              
     return response.status(200).json(users);
   } catch (error) {
     return next(error);

@@ -1,3 +1,4 @@
+const { json } = require('body-parser');
 const joi = require('joi');
 
 module.exports = {
